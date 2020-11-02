@@ -3,6 +3,7 @@ import { FunctionComponent, ReactElement } from 'react';
 import useReferenceArrayFieldController from './useReferenceArrayFieldController';
 import { ListControllerProps } from '../useListController';
 import { Record, SortPayload } from '../../types';
+import { useResourceContext } from '../../core';
 
 interface Props {
     basePath: string;
@@ -24,7 +25,9 @@ interface Props {
  */
 const ReferenceArrayFieldController: FunctionComponent<Props> = props => {
     const { children, ...rest } = props;
+    const { resource } = useResourceContext(props);
     const controllerProps = useReferenceArrayFieldController({
+        resource,
         sort: {
             field: 'id',
             order: 'ASC',

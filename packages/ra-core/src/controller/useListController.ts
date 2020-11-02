@@ -112,13 +112,13 @@ const useListController = <RecordType extends Record = Record>(
         basePath,
         exporter = defaultExporter,
         filterDefaultValues,
+        hasCreate,
+        resource,
         sort = defaultSort,
         perPage = 10,
         filter,
         debounce = 500,
     } = props;
-    const { resource } = useResourceContext(props);
-    const { hasCreate } = useResourceDefinition(resource, props);
 
     if (filter && isValidElement(filter)) {
         throw new Error(

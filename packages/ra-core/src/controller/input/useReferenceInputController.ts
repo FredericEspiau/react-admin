@@ -16,7 +16,6 @@ import usePaginationState from '../usePaginationState';
 import { useSortState } from '..';
 import useFilterState from '../useFilterState';
 import useSelectionState from '../useSelectionState';
-import { useResourceContext } from '../../core';
 
 const defaultReferenceSource = (resource: string, source: string) =>
     `${resource}@${source}`;
@@ -73,10 +72,10 @@ export const useReferenceInputController = (
         filterToQuery,
         // @deprecated
         referenceSource = defaultReferenceSource,
+        resource,
         sort: sortOverride,
         source,
     } = props;
-    const { resource } = useResourceContext(props);
     const translate = useTranslate();
 
     // pagination logic

@@ -10,7 +10,6 @@ import { useNotify } from '../../sideEffect';
 import usePaginationState from '../usePaginationState';
 import useSelectionState from '../useSelectionState';
 import useSortState from '../useSortState';
-import { useResourceContext } from '../../core';
 
 interface Option {
     basePath: string;
@@ -60,10 +59,10 @@ const useReferenceArrayFieldController = (
         perPage: initialPerPage = 1000,
         record,
         reference,
+        resource,
         sort: initialSort = defaultSort,
         source,
     } = props;
-    const { resource } = useResourceContext(props);
     const notify = useNotify();
     const ids = get(record, source) || [];
     const { data, error, loading, loaded } = useGetMany(reference, ids, {

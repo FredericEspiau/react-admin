@@ -3,6 +3,7 @@ import { ReactElement, FunctionComponent } from 'react';
 import { Record, SortPayload } from '../../types';
 import useReferenceManyFieldController from './useReferenceManyFieldController';
 import { ListControllerProps } from '../useListController';
+import { useResourceContext } from '../../core';
 
 interface Props {
     basePath: string;
@@ -26,9 +27,11 @@ interface Props {
  */
 export const ReferenceManyFieldController: FunctionComponent<Props> = props => {
     const { children, page = 1, perPage = 25, ...rest } = props;
+    const { resource } = useResourceContext(props);
     const controllerProps = useReferenceManyFieldController({
         page,
         perPage,
+        resource,
         ...rest,
     });
     return children(controllerProps);

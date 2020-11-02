@@ -5,6 +5,7 @@ import {
     CreateProps,
     CreateControllerProps,
 } from './useCreateController';
+import { useResourceContext, useResourceDefinition } from '../../core';
 
 interface CreateControllerComponentProps extends CreateControllerProps {
     translate: Translate;
@@ -28,7 +29,16 @@ interface Props extends CreateProps {
  * );
  */
 export const CreateController = ({ children, ...props }: Props) => {
-    const controllerProps = useCreateController(props);
-    const translate = useTranslate(); // injected for backwards compatibility
+    const { resource } = useResourceContext(props);
+    const { hasEdit, hasShow } = useResourceDefinition(resource, props);
+    // @deprecated. hasEdit and hasShow are injected for backward compatibility
+    const controllerProps = useCreateController({
+        resource,
+        hasEdit,
+        hasShow,
+        ...props,
+    });
+    // @deprecated. injected for backward compatibility
+    const translate = useTranslate();
     return children({ translate, ...controllerProps });
 };

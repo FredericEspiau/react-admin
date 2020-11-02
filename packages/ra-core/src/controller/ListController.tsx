@@ -4,6 +4,7 @@ import useListController, {
 } from './useListController';
 import { useTranslate } from '../i18n';
 import { Translate } from '../types';
+import { useResourceContext, useResourceDefinition } from '../core';
 
 interface ListControllerComponentProps extends ListControllerProps {
     translate: Translate;
@@ -27,8 +28,16 @@ interface Props extends ListProps {
  * )
  */
 const ListController = ({ children, ...props }: Props) => {
-    const controllerProps = useListController(props);
-    const translate = useTranslate(); // injected for backwards compatibility
+    const { resource } = useResourceContext(props);
+    const { hasCreate } = useResourceDefinition(resource, props);
+    // @deprecated. hasCreate is injected for backward compatibility
+    const controllerProps = useListController({
+        resource,
+        hasCreate,
+        ...props,
+    });
+    // @deprecated. injected for backward compatibility
+    const translate = useTranslate();
     return children({ translate, ...controllerProps });
 };
 

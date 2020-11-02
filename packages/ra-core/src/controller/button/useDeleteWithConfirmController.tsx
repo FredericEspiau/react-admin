@@ -14,7 +14,6 @@ import {
 } from '../../sideEffect';
 import { Record } from '../../types';
 import { OnFailure, OnSuccess } from '../saveModifiers';
-import { useResourceContext } from '../../core';
 
 /**
  * Prepare a set of callbacks for a delete button guarded by confirmation dialog
@@ -74,12 +73,12 @@ const useDeleteWithConfirmController = (
     const {
         record,
         redirect: redirectTo,
+        resource,
         basePath,
         onClick,
         onSuccess,
         onFailure,
     } = props;
-    const { resource } = useResourceContext(props);
     const [open, setOpen] = useState(false);
     const notify = useNotify();
     const redirect = useRedirect();

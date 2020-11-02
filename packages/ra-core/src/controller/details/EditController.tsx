@@ -5,6 +5,7 @@ import {
     EditProps,
     EditControllerProps,
 } from './useEditController';
+import { useResourceContext, useResourceDefinition } from '../../core';
 
 interface EditControllerComponentProps extends EditControllerProps {
     translate: Translate;
@@ -28,7 +29,21 @@ interface Props extends EditProps {
  * );
  */
 export const EditController = ({ children, ...props }: Props) => {
-    const controllerProps = useEditController(props);
-    const translate = useTranslate(); // injected for backwards compatibility
+    const { resource } = useResourceContext(props);
+    const { hasCreate, hasEdit, hasList, hasShow } = useResourceDefinition(
+        resource,
+        props
+    );
+    // @deprecated. hasCreate, hasEdit, hasList and hasShow are injected for backward compatibility
+    const controllerProps = useEditController({
+        resource,
+        hasCreate,
+        hasEdit,
+        hasList,
+        hasShow,
+        ...props,
+    });
+    // @deprecated. injected for backward compatibility
+    const translate = useTranslate();
     return children({ translate, ...controllerProps });
 };

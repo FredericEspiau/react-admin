@@ -22,7 +22,6 @@ import {
     SetTransformData,
     useSaveModifiers,
 } from '../saveModifiers';
-import { useResourceContext, useResourceDefinition } from '../../core';
 
 export interface EditProps {
     basePath?: string;
@@ -95,18 +94,18 @@ export const useEditController = <RecordType extends Record = Record>(
     const {
         basePath,
         hasCreate,
+        hasEdit,
+        hasList,
+        hasShow,
         id,
+        resource,
         successMessage,
         undoable = true,
         onSuccess,
         onFailure,
         transform,
     } = props;
-    const { resource } = useResourceContext(props);
-    const { hasEdit, hasList, hasShow } = useResourceDefinition(
-        resource,
-        props
-    );
+
     const translate = useTranslate();
     const notify = useNotify();
     const redirect = useRedirect();

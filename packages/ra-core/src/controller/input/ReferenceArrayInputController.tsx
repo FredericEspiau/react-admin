@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 
 import { Record, SortPayload, PaginationPayload } from '../../types';
 import useReferenceArrayInputController from './useReferenceArrayInputController';
+import { useResourceContext } from '../../core';
 
 interface ChildrenFuncParams {
     choices: Record[];
@@ -114,18 +115,19 @@ interface Props {
  *     <SelectArrayInput optionText="name" />
  * </ReferenceArrayInput>
  */
-const ReferenceArrayInputController: FunctionComponent<Props> = ({
-    basePath,
-    children,
-    filter = {},
-    input,
-    filterToQuery = searchText => ({ q: searchText }),
-    perPage = 25,
-    reference,
-    resource,
-    sort = { field: 'id', order: 'DESC' },
-    source,
-}) => {
+const ReferenceArrayInputController: FunctionComponent<Props> = props => {
+    const {
+        basePath,
+        children,
+        filter = {},
+        input,
+        filterToQuery = searchText => ({ q: searchText }),
+        perPage = 25,
+        reference,
+        sort = { field: 'id', order: 'DESC' },
+        source,
+    } = props;
+    const { resource } = useResourceContext(props);
     const {
         choices,
         error,

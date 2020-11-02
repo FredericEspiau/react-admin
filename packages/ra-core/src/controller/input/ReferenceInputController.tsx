@@ -4,6 +4,7 @@ import {
     FunctionComponent,
     ReactElement,
 } from 'react';
+import { useResourceContext } from '../../core';
 
 import { SortPayload, Record } from '../../types';
 import {
@@ -37,7 +38,10 @@ export const ReferenceInputController: FunctionComponent<Props> = ({
     children,
     ...props
 }) => {
-    return children(useReferenceInputController(props)) as ReactElement;
+    const { resource } = useResourceContext(props);
+    return children(
+        useReferenceInputController({ resource, ...props })
+    ) as ReactElement;
 };
 
 export default ReferenceInputController as ComponentType<Props>;

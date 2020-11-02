@@ -13,7 +13,6 @@ import { FieldInputProps } from 'react-final-form';
 import useGetMatching from '../../dataProvider/useGetMatching';
 import { useTranslate } from '../../i18n';
 import { getStatusForArrayInput as getDataStatus } from './referenceDataStatus';
-import { useResourceContext } from '../../core';
 
 /**
  * Prepare data for the ReferenceArrayInput components
@@ -50,7 +49,6 @@ const useReferenceArrayInputController = (
         reference,
         source,
     } = props;
-    const { resource } = useResourceContext(props);
     const translate = useTranslate();
 
     // We store the current input value in a ref so that we are able to fetch

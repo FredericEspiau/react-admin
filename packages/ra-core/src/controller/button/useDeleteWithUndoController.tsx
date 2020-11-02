@@ -9,7 +9,6 @@ import {
 } from '../../sideEffect';
 import { Record } from '../../types';
 import { OnFailure, OnSuccess } from '../saveModifiers';
-import { useResourceContext } from '../../core';
 
 /**
  * Prepare callback for a Delete button with undo support
@@ -55,11 +54,11 @@ const useDeleteWithUndoController = (
         record,
         basePath,
         redirect: redirectTo = 'list',
+        resource,
         onClick,
         onSuccess,
         onFailure,
     } = props;
-    const { resource } = useResourceContext(props);
     const notify = useNotify();
     const redirect = useRedirect();
     const refresh = useRefresh();
